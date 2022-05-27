@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header></header>
+    <br>
+
+    <input type="text" id="inp" oninput="gettingData()" >
+    <br>
+
+    <div id="cont" ></div>
+</body>
+</html>
+<script type="module">
+    import navbar from './components/navbar.js';
+    console.log(navbar);
+    import { appendData } from "./scripts/fetchdata.js";
+    
+    let head=document.querySelector("header");
+    head.innerHTML =navbar()
+
+    let cont = document.querySelector("#cont");
+    
+
+    
+    let inp = document.querySelector("#inp");
+    inp.addEventListener("keypress", () => {
+        gettingData(event);
+    });
+    const gettingData = async (e) => {
+        console.log(e);
+        try{
+            if(e.code === "Enter")
+            {
+                let input = inp.value;
+                //getting data 
+                let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?&s=${input}`);
+
+                let data = await response.json();
+
+                let meals = data.meals;
+                console.log(meals);    
+
+                appendData(meals, cont);
+            }
+        } catch(error){
+            console.log(error);
+        }
+    };
+        
+</script>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header></header>
+    <div id="container"></div>
+</body>
+</html>
+<script type="module">
+    import navbar from './components/navbar.js';
+    import { getData, appendData } from "./scripts/fetchdata.js";
+
+    console.log(navbar);
+    
+    let container=document.querySelector("#container")
+    let head=document.querySelector("header");
+    head.innerHTML =navbar()
+
+    let response = await getData(`https://www.themealdb.com/api/json/v1/1/random.php`);
+    console.log(response);
+
+
+    //append data 
+    appendData(response, container);
+
+
+
+    
+</script>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header></header>
+    <div id="container" ></div>
+</body>
+</html>
+<script type="module">
+    import navbar from './components/navbar.js';
+    console.log(navbar);
+    let head=document.querySelector("header");
+    head.innerHTML =navbar()
+    
+    let container=document.querySelector("#container");
+
+    let url = `https://www.themealdb.com/api/json/v1/1/categories.php`;
+    const getData = async (e) => {
+        try {
+            let res = await fetch(url);
+            let data = await res.json();
+            let datameal = data.categories;
+            console.log(data);
+
+            appendData(datameal);
+        }  catch(error) {
+                    console.log(error);
+        }
+    } 
+    getData();
+
+    const appendData = (data) => {
+        container.innerHTML = "";
+
+        data.forEach((el) => {
+
+            let div = document.createElement('div');
+
+            let name = document.createElement('p');
+            name.innerText = el.strCategory;
+
+            let img = document.createElement('img');
+            img.src = el.strCategoryThumb;
+
+            div.append(img, name);
+
+            container.append(div);
+        });
+    };
+
+
+
+
+
+
+
+</script>
